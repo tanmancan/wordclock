@@ -1,0 +1,51 @@
+
+
+$clock-frame-bg: #222 !default;
+
+
+@mixin display-text{
+	font: {
+		family: 'Lato', sans-serif;
+		size: 4rem;
+		weight: 900;
+	}
+	text-transform: uppercase;
+	text-rendering: optimizeLegibility;
+	color: $clock-frame-bg - #111;
+}
+
+
+
+body{
+	font-size: 12pt;
+	background: black;
+}
+
+.clockFrame{
+	width: 825px;
+	height: 465px;
+	padding: 2rem;
+
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+
+	background: $clock-frame-bg;
+
+
+	.clockPhrase{
+		display: inline-block;
+		@include display-text;
+
+		&.active{
+			color: #fff;
+			text-shadow: 0px 0px 15px #fff;
+		}
+	}
+	.placeHolder{
+		@extend .clockPhrase;
+	}
+}
