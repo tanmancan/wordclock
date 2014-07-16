@@ -20,7 +20,7 @@ var wordClock = {
 		var twelveHours = this.getTime().getHours();
 		if(twelveHours > 12){
 			return twelveHours - 12;
-		}else if(twelveHours == 0 || twelveHours == 25){
+		}else if(twelveHours == 0 || twelveHours == 24){
 			twelveHours = 12;
 			return twelveHours;
 		}else{
