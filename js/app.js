@@ -13,7 +13,7 @@ function showTime(){
 var wordClock = {
 
 	getTime: function(){
-		var timeNow = new Date();
+		var timeNow = new Date(/*2013,2,1,10,35*/);
 		return timeNow;
 	},
 	getHours: function(){
