@@ -3,8 +3,8 @@ body {
   background: black; }
 
 .clockFrame {
-  width: 580px;
-  height: 625px;
+  width: 835px;
+  height: 475px;
   padding: 2rem;
   position: absolute;
   top: 0;
