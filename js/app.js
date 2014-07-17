@@ -13,18 +13,18 @@ function showTime(){
 var wordClock = {
 
 	getTime: function(){
-		var timeNow = new Date(/*2013,2,1,10,35*/);
+		var timeNow = new Date(/*2013,2,3,9,60*/);
 		return timeNow;
 	},
 	getHours: function(){
-		var twelveHours = this.getTime().getHours();
-		if(twelveHours > 12){
-			return twelveHours - 12;
-		}else if(twelveHours == 0 || twelveHours == 24){
-			twelveHours = 12;
-			return twelveHours;
+		var hourConvert = this.getTime().getHours();
+		if(hourConvert > 12){
+			return hourConvert - 12;
+		}else if(hourConvert == 0 || hourConvert == 24){
+			hourConvert = 12;
+			return hourConvert;
 		}else{
-			return twelveHours;
+			return hourConvert;
 		}
 		return this;
 	},
@@ -51,7 +51,7 @@ var wordClock = {
 		//Get tense value & add to hours display if tense is 'to'
 		//i.e. 5 minutes TO 10 when it is 9 o'clock
 		var hourOffset = this.tenseLogic();
-
+		//console.log(this.getHours() + hourOffset);
 		//Set hour display
 		this.displayOn('hours', this.getHours() + hourOffset);
 
@@ -64,7 +64,7 @@ var wordClock = {
 	minuteLogic: function(){
 
 		//Set whether to show o'clock display
-		this.getMinutes() % 5 == 0 ? this.hourLogic(false) : this.hourLogic(true);
+		this.getMinutes() % 5 == 0 && this.getMinutes() != 0 ? this.hourLogic(false) : this.hourLogic(true);
 
 		var minRemaining = 60 - this.getMinutes();
 
@@ -97,8 +97,10 @@ var wordClock = {
 	},
 
 	tenseLogic: function(){
+
+		console.log(this.getMinutes() % 5);
 		//Determine wheter to use 'past' or 'to' indicator
-		if(this.getMinutes() % 5 == 0 && this.getMinutes() <= 30){
+		if(this.getMinutes() % 5 == 0 && this.getMinutes() <= 30 && this.getMinutes() != 0){
 			//activate 'past' display
 			this.displayOn('tense', 1);
 			//No need to offset hour display
@@ -110,8 +112,8 @@ var wordClock = {
 			//Add to hours display since tense is 'to'
 			//i.e. 5 minutes TO 10 when it is 9 o'clock
 			return 1;
-		}else if(this.getMinutes() % 5 != 0){
-			return false;
+		}else{
+			return 0;
 		}
 		return this;
 	},
