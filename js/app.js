@@ -1,22 +1,76 @@
+var wordClock = new function(){
+
+	this.defaults = {
+		staticTime: false, // true or flase
+		staticSetTime: 'Thu, 01 Jan 1970 12:25:00', //String argument for Date()
+		refreshRate: 1000, //in milliseconds
+		debug: false //true or false
+	}
+
+	this.settings = {};
 
 
+	this.setOptions = function(options){
+		var settings = $.extend( {}, this.defaults, options );
+		return settings;
+	}
 
+	this.initClock = function(options){
 
-setInterval(function(){showTime()}, 1000 );
-function showTime(){
-	wordClock.startClock();
-	$('#debug').text(wordClock.getHours()+':'+wordClock.getMinutes()+':'+wordClock.getSeconds());
-	
-}
+		//Set up settings and options
+		this.settings = this.setOptions(options);
+		that = this;
 
+		var refreshId = setInterval(function(){that.startClock()}, this.settings.refreshRate );
 
-var wordClock = {
+		return this;
+	}
 
-	getTime: function(){
-		var timeNow = new Date(/*2013,2,3,9,60*/);
+	this.startClock = function(){
+
+		//reset display on each interval
+		$('.clockPhrase:not([data-time-permanent])').removeClass('active');
+
+		//Begin calculating time and turn on correct display
+		this.minuteLogic();
+		
+		//debug settings
+		if(this.settings.debug == true)this.debug();
+
+		return this;
+	}
+
+	this.debug = function(){
+
+		$('#debug').text(this.getHours()+':'+this.getMinutes()+':'+this.getSeconds());
+
+		return this;
+	}
+
+	this.error =  function(msg){
+
+		$('#debug').text('Error: '+msg);
+		clearInterval(refreshId);
+	}
+
+	this.getTime = function(){
+
+		if(this.settings.staticTime == false){
+			var timeNow = new Date();
+		}else if(this.settings.staticTime == true){
+			var timeNow = new Date(this.settings.staticSetTime);
+			if(timeNow == 'Invalid Date' || timeNow == NaN){
+				this.error('Invalid dateformat used in staticSetTime');
+			}
+		}else{
+			this.error('StaticTime incorrect value');
+			return false;
+		}
+		
 		return timeNow;
-	},
-	getHours: function(){
+	}
+
+	this.getHours = function(){
 		var hourConvert = this.getTime().getHours();
 		if(hourConvert > 12){
 			return hourConvert - 12;
@@ -27,26 +81,29 @@ var wordClock = {
 			return hourConvert;
 		}
 		return this;
-	},
-	getMinutes: function(){
-		return this.getTime().getMinutes();
-	},
-	getSeconds: function(){
-		return this.getTime().getSeconds();
-	},
+	}
 
-	displayOn: function(type, value){
+	this.getMinutes = function(){
+		return this.getTime().getMinutes();
+	}
+	this.getSeconds = function(){
+		return this.getTime().getSeconds();
+	}
+
+	this.displayOn = function(type, value){
 		//Turn on display item based on data attribute and value
 		$('[data-time-'+type+'="'+value+'"]').addClass('active');
 		return this;
-	},
-	displayOff: function(type, value){
+	}
+
+	this.displayOff = function(type, value){
 		//Turn off display item based on data attribute and value
 		$('[data-time-'+type+'="'+value+'"]').removeClass('active');
 		return this;
-	},
+	}
 
-	hourLogic: function(showMinute){
+
+	this.hourLogic = function(showMinute){
 
 		//Get tense value & add to hours display if tense is 'to'
 		//i.e. 5 minutes TO 10 when it is 9 o'clock
@@ -59,9 +116,9 @@ var wordClock = {
 		showMinute == false ? this.displayOff('hours', 0) : this.displayOn('hours', 0);
 		
 		return this;
-	},
+	}
 
-	minuteLogic: function(){
+	this.minuteLogic = function(){
 
 		//Set whether to show o'clock display
 		this.getMinutes() % 5 == 0 && this.getMinutes() != 0 ? this.hourLogic(false) : this.hourLogic(true);
@@ -89,16 +146,17 @@ var wordClock = {
 		}
 
 		return this;
-	},
+	}
 
-	minuteLabel: function(){
+
+	this.minuteLabel = function(){
 		//Quicker to reuse - turn on 'minute label' display
 		this.displayOn('minutes', 0);
-	},
+	}
 
-	tenseLogic: function(){
 
-		console.log(this.getMinutes() % 5);
+	this.tenseLogic = function(){
+
 		//Determine wheter to use 'past' or 'to' indicator
 		if(this.getMinutes() % 5 == 0 && this.getMinutes() <= 30 && this.getMinutes() != 0){
 			//activate 'past' display
@@ -116,18 +174,14 @@ var wordClock = {
 			return 0;
 		}
 		return this;
-	},
-
-	startClock: function(){
-		//reset display on each interval
-		$('.clockPhrase:not([data-time-permanent])').removeClass('active');
-
-		//Calculate time and turn on correct display
-		this.minuteLogic();
-		return this;
 	}
+
+	return this;
 
 }
 
-
-
+wordClock.initClock({
+		staticTime: false,
+		staticSetTime: 'Thu, 01 Jan 1970 12:25:00',
+		debug: false
+	});
