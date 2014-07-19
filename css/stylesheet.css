@@ -2,6 +2,16 @@ body {
   font-size: 12pt;
   background: black; }
 
+.error {
+  font-weight: bold;
+  font-family: sans-serif;
+  color: red;
+  font-size: 1rem; }
+
+.debug {
+  color: #fff;
+  float: right; }
+
 .clockFrame {
   width: 835px;
   height: 475px;

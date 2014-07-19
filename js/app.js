@@ -1,17 +1,47 @@
+
 var wordClock = new function(){
 
 	this.defaults = {
-		staticTime: false, // true or flase
-		staticSetTime: 'Thu, 01 Jan 1970 12:25:00', //String argument for Date()
-		refreshRate: 1000, //in milliseconds
-		debug: false //true or false
+		staticTime: 'off', // 'on' or 'off' to display a static time
+		staticSetTime: 'Thu, 01 Jan 1970 12:25:00', //Default static time. Custom time format must be valid with Date()
+		debug: 'off', //'on' or 'off' - shows current time or staticTime(if set)
+		refreshRate: 1000 //in milliseconds
 	}
 
 	this.settings = {};
 
+	var refreshId;
 
 	this.setOptions = function(options){
 		var settings = $.extend( {}, this.defaults, options );
+
+		//debug validation
+		switch(settings.debug){
+		    case 'on':
+		   		$('.debug').remove();
+		        $('body').append('<div class="debug"></div>');
+		        break;
+		    case 'off':
+		   		$('.debug').remove();
+		        break;
+		    default:
+		        this.error('Invalid debug option. Must be "on" or "off"');
+		};
+		//staticTime + staticSetTime validation
+		switch(settings.staticTime){
+		    case 'on':
+		        var validTime = new Date(settings.staticSetTime);
+				if(validTime == 'Invalid Date' || validTime == NaN){
+					this.error('Invalid dateformat used in staticSetTime');
+				}
+		        break;
+		    case 'off':
+		        break;
+		    default:
+		        this.error('Invalid staticTime option.  Must be "on" or "off"');
+		}
+		if(typeof settings.refreshRate != 'number')this.error('refreshRate must be a number(in milliseconds)');
+
 		return settings;
 	}
 
@@ -21,7 +51,7 @@ var wordClock = new function(){
 		this.settings = this.setOptions(options);
 		that = this;
 
-		var refreshId = setInterval(function(){that.startClock()}, this.settings.refreshRate );
+		refreshId = setInterval(function(){that.startClock()}, this.settings.refreshRate );
 
 		return this;
 	}
@@ -35,36 +65,32 @@ var wordClock = new function(){
 		this.minuteLogic();
 		
 		//debug settings
-		if(this.settings.debug == true)this.debug();
+		if(this.settings.debug == 'on')this.debug();
 
 		return this;
 	}
 
 	this.debug = function(){
 
-		$('#debug').text(this.getHours()+':'+this.getMinutes()+':'+this.getSeconds());
+		$('.debug').text(this.getHours()+':'+this.getMinutes()+':'+this.getSeconds());
 
 		return this;
 	}
 
 	this.error =  function(msg){
-
-		$('#debug').text('Error: '+msg);
+		//Create Error Container
 		clearInterval(refreshId);
+		$('body').html('<div class="error">Error: '+msg+'</div>');
 	}
 
 	this.getTime = function(){
 
-		if(this.settings.staticTime == false){
+		if(this.settings.staticTime == 'off'){
 			var timeNow = new Date();
-		}else if(this.settings.staticTime == true){
+		}else if(this.settings.staticTime == 'on'){
 			var timeNow = new Date(this.settings.staticSetTime);
-			if(timeNow == 'Invalid Date' || timeNow == NaN){
-				this.error('Invalid dateformat used in staticSetTime');
-			}
 		}else{
 			this.error('StaticTime incorrect value');
-			return false;
 		}
 		
 		return timeNow;
@@ -105,12 +131,21 @@ var wordClock = new function(){
 
 	this.hourLogic = function(showMinute){
 
-		//Get tense value & add to hours display if tense is 'to'
+		//Get verb value & add to hours display if verb is 'to'
 		//i.e. 5 minutes TO 10 when it is 9 o'clock
-		var hourOffset = this.tenseLogic();
+		var hourOffset = this.verbLogic();
 		//console.log(this.getHours() + hourOffset);
+
+		//Adjust offset for 12 hour rollover
+		var hourNow = this.getHours();
+		if(hourNow + hourOffset > 12){
+			hourNow = 1;
+		}else{
+			hourNow += hourOffset;
+		}
+
 		//Set hour display
-		this.displayOn('hours', this.getHours() + hourOffset);
+		this.displayOn('hours', hourNow);
 
 		//showMinute determins if 0'clock display is active
 		showMinute == false ? this.displayOff('hours', 0) : this.displayOn('hours', 0);
@@ -155,19 +190,19 @@ var wordClock = new function(){
 	}
 
 
-	this.tenseLogic = function(){
+	this.verbLogic = function(){
 
 		//Determine wheter to use 'past' or 'to' indicator
 		if(this.getMinutes() % 5 == 0 && this.getMinutes() <= 30 && this.getMinutes() != 0){
 			//activate 'past' display
-			this.displayOn('tense', 1);
+			this.displayOn('verb', 1);
 			//No need to offset hour display
 			return 0;
 		}else if(this.getMinutes() % 5 == 0 && this.getMinutes() > 30){
 			//activate 'to' display
-			this.displayOn('tense', 0);
+			this.displayOn('verb', 0);
 			//Return hour offset #
-			//Add to hours display since tense is 'to'
+			//Add to hours display since verb is 'to'
 			//i.e. 5 minutes TO 10 when it is 9 o'clock
 			return 1;
 		}else{
@@ -178,10 +213,8 @@ var wordClock = new function(){
 
 	return this;
 
-}
+};
 
-wordClock.initClock({
-		staticTime: false,
-		staticSetTime: 'Thu, 01 Jan 1970 12:25:00',
-		debug: false
-	});
+function startClock(options){
+	wordClock.initClock(options);
+}

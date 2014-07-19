@@ -38,8 +38,8 @@
 	<span class="clockPhrase placeholder">r</span>
 	<!-- /placeholder -->
 
-	<span class="clockPhrase" data-time-tense="1">past</span>
-	<span class="clockPhrase" data-time-tense="0">to</span>
+	<span class="clockPhrase" data-time-verb="1">past</span>
+	<span class="clockPhrase" data-time-verb="0">to</span>
 	
 	
 	<span class="clockPhrase placeholder">i</span>
@@ -63,15 +63,49 @@
 <!-- /.clockFrame -->
 
 <div class="settings">
-	
+	<button id="staticTime">Set a static time</button>
+	<button id="debugOn">Turn On Debug</button>
+	<button id="debugOff">Turn Off Debug</button>
 </div>
 
-<div id="debug" style="color:white">
-	
-</div>
+
 
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="/js/app.js"></script>
+
+<script>
+	
+	var staticOptions = {
+		staticTime: 'on',
+		staticSetTime: 'Thu, 01 Jan 1970 10:55:00',
+		debug: 'on',
+		refreshRate: 1000
+	},
+	debugOn = {
+		staticTime: 'off',
+		staticSetTime: 'Thu, 01 Jan 1970 10:55:00',
+		debug: 'on',
+		refreshRate: 1000
+	},
+	debugOff = {
+		staticTime: 'off',
+		staticSetTime: 'Thu, 01 Jan 1970 10:55:00',
+		debug: 'off',
+		refreshRate: 1000
+	};
+
+
+	$('#staticTime').on('click', function(){
+		startClock(staticOptions);
+	});
+	$('#debugOn').on('click', function(){
+		startClock(debugOn);
+	});
+	$('#debugOff').on('click', function(){
+		startClock(debugOff);
+	});
+
+</script>
 </body>
 </html>
