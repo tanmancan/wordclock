@@ -1,4 +1,5 @@
 
+@import 'settings';
 
 $clock-frame-bg: #222 !default;
 
@@ -21,16 +22,7 @@ body{
 	background: black;
 }
 
-.error{
-	font-weight: bold;
-	font-family: sans-serif;
-	color: red;
-	font-size: 1rem;
-}
-.debug{
-	color: #fff;
-	float:right;
-}
+
 .clockFrame{
 	width: 835px;
 	height: 475px;
