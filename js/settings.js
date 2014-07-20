@@ -6,22 +6,16 @@ var clockSettings = {
 	opts: {
 		staticTime: 'off', // 'on' or 'off' to display a static time
 		staticSetTime: 'Thu, 01 Jan 1970 12:25:00', //Default static time. Custom time format must be valid with Date()
-		debug: 'off', //'on' or 'off' - shows current time or staticTime(if set)
+		dispTime: 'off', //'on' or 'off' - shows current time or staticTime(if set)
 		refreshRate: 1000 //in milliseconds
 	},
 
-	optShowTime: function(){
-		$('#showtime').is(':checked') ? this.opts.debug = 'on' : this.opts.debug = 'off';
-		return this;
-	},
-	optStaticTime: function() {
-		$('#statictime').is(':checked') ? this.opts.staticTime = 'on' : this.opts.staticTime = 'off';
-		return this;
-	},
+	
 	initSettings: function(){
 
-		this.optShowTime();
-		this.optStaticTime();
+		$('#showtime').is(':checked') ? this.opts.dispTime = 'on' : this.opts.dispTime = 'off';
+		$('#statictime').is(':checked') ? this.opts.staticTime = 'on' : this.opts.staticTime = 'off';
+		
 		return this;
 
 	},

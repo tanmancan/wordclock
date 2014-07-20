@@ -9,12 +9,12 @@
 <body>
 
 <div class="clockFrame">
-	<span class="clockPhrase active" data-time-permanent="">it</span>
+	<span class="clockPhrase active" data-time-permanent="1">it</span>
 	
 	<span class="clockPhrase placeholder">r</span>
 	<!-- /placeholder -->
 
-	<span class="clockPhrase active" data-time-permanent="">is</span>
+	<span class="clockPhrase active" data-time-permanent="1">is</span>
 	
 	<span class="clockPhrase placeholder">n</span>
 	<!-- /placeholder -->
@@ -58,20 +58,22 @@
 	<span class="clockPhrase" data-time-hours="11">eleven</span>
 	<span class="clockPhrase" data-time-hours="12">twelve</span>
 	<span class="clockPhrase" data-time-hours="0">o'clock</span>
+	<span class="clockPhrase placeholder">word</span>
+	<span class="clockPhrase placeholder dispTime" data-time-permanent="0">clock</span>
 
 </div>
 <!-- /.clockFrame -->
 
 <div class="settings">
 
-	<div class="debugSwitches">
+	<div class="settingOptions">
 		<div class="switch">
 			<input type="checkbox" name="showtime" id="showtime">
 			<label for="showtime"></label>
 		</div>
 		<span class="switchLabel">Show Minute and Seconds</span>
 	</div>
-	<div class="debugSwitches">
+	<div class="settingOptions">
 		<div class="switch">
 			<input type="checkbox" name="statictime" id="statictime">
 			<label for="statictime"></label>

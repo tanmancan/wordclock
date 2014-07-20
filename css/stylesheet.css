@@ -4,9 +4,6 @@
   color: red;
   font-size: 1rem; }
 
-.debug {
-  color: #fff; }
-
 .settings {
   background: #fff;
   width: 20rem;
@@ -14,7 +11,7 @@
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none; }
-  .settings .debugSwitches {
+  .settings .settingOptions {
     margin: 1rem 0; }
 
 .switch {

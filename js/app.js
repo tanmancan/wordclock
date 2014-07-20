@@ -26,7 +26,7 @@ var wordClock = new function(){
 	this.defaults = {
 		staticTime: 'off', // 'on' or 'off' to display a static time
 		staticSetTime: 'Thu, 01 Jan 1970 12:25:00', //Default static time. Custom time format must be valid with Date()
-		debug: 'off', //'on' or 'off' - shows current time or staticTime(if set)
+		dispTime: 'off', //'on' or 'off' - shows current time or staticTime(if set)
 		refreshRate: 1000 //in milliseconds
 	}
 
@@ -37,17 +37,16 @@ var wordClock = new function(){
 	this.setOptions = function(options){
 		var settings = $.extend( {}, this.defaults, options );
 
-		//debug validation
-		switch(settings.debug){
+		//dispTime validation
+		switch(settings.dispTime){
 		    case 'on':
-		   		$('.debug').remove();
-		        $('body').append('<div class="debug"></div>');
+		        $('.dispTime').data('time-permanent', 1).html('');
 		        break;
 		    case 'off':
-		   		$('.debug').remove();
+		    	$('.dispTime').data('time-permanent', 0).html('clock');
 		        break;
 		    default:
-		        this.error('Invalid debug option. Must be "on" or "off"');
+		        this.error('Invalid dispTime option. Must be "on" or "off"');
 		};
 		//staticTime + staticSetTime validation
 		switch(settings.staticTime){
@@ -73,6 +72,18 @@ var wordClock = new function(){
 		this.settings = this.setOptions(options);
 		that = this;
 
+		//Avtivate display that do not refresh with time change
+		$('.clockPhrase').each(function(index, element){
+			var thisDisp = $(element);
+			//console.log(thisDisp);
+			//console.log(thisDisp.data('time-permanent'));
+			if (thisDisp.data('time-permanent') == 1) {
+				thisDisp.addClass('active');
+			}else{
+				thisDisp.removeClass('active');
+			}
+		});
+
 		refreshId = setInterval(function(){that.startClock()}, this.settings.refreshRate );
 
 		return this;
@@ -83,18 +94,20 @@ var wordClock = new function(){
 		//reset display on each interval
 		$('.clockPhrase:not([data-time-permanent])').removeClass('active');
 
+		
+
 		//Begin calculating time and turn on correct display
 		this.minuteLogic();
 		
-		//debug settings
-		if(this.settings.debug == 'on')this.debug();
+		//dispTime settings
+		if(this.settings.dispTime == 'on')this.dispTime();
 
 		return this;
 	}
 
-	this.debug = function(){
+	this.dispTime = function(){
 
-		$('.debug').text(this.getHours()+':'+this.getMinutes()+':'+this.getSeconds());
+		$('.dispTime').text(this.getHours()+':'+this.getMinutes()+':'+this.getSeconds());
 
 		return this;
 	}
