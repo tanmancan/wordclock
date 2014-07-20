@@ -72,7 +72,7 @@ var wordClock = new function(){
 		this.settings = this.setOptions(options);
 		that = this;
 
-		//Avtivate display that do not refresh with time change
+		//Turn on/turn off the display that do not refresh with time change
 		$('.clockPhrase').each(function(index, element){
 			var thisDisp = $(element);
 			//console.log(thisDisp);
@@ -84,19 +84,18 @@ var wordClock = new function(){
 			}
 		});
 
-		refreshId = setInterval(function(){that.startClock()}, this.settings.refreshRate );
+		//Start display update cycle
+		refreshId = setInterval(function(){that.refreshClock()}, this.settings.refreshRate );
 
 		return this;
 	}
 
-	this.startClock = function(){
+	this.refreshClock = function(){
 
-		//reset display on each interval
-		$('.clockPhrase:not([data-time-permanent])').removeClass('active');
+		//reset display on each cycle
+		$('.clockPhrase.active:not([data-time-permanent])').removeClass('active');
 
-		
-
-		//Begin calculating time and turn on correct display
+		//Begin calculating time and turn on corresponding displays
 		this.minuteLogic();
 		
 		//dispTime settings
@@ -196,23 +195,35 @@ var wordClock = new function(){
 		var minRemaining = 60 - this.getMinutes();
 
 		//if if if
+
+		//'five' minutes display
 		if(minRemaining == 5 || minRemaining == 55){
 			this.displayOn('minutes', 5);
 			this.minuteLabel();
+
+		//10
 		}else if(minRemaining == 10 || minRemaining == 50){
 			this.displayOn('minutes', 10);
 			this.minuteLabel();
+
+		//15
 		}else if(minRemaining == 15 || minRemaining == 45){
 			this.displayOn('minutes', 15);
-		}else if(minRemaining == 30){
-			this.displayOn('minutes', 30);
+
+		//20
 		}else if(minRemaining == 20 || minRemaining == 40){
 			this.displayOn('minutes', 20);
 			this.minuteLabel();
+
+		//25 - 'twenty' + 'five'
 		}else if(minRemaining == 25 || minRemaining == 35){
 			this.displayOn('minutes', 20);
 			this.displayOn('minutes', 5);
 			this.minuteLabel();
+
+		//30 - 'half'
+		}else if(minRemaining == 30){
+			this.displayOn('minutes', 30);
 		}
 
 		return this;
@@ -220,7 +231,7 @@ var wordClock = new function(){
 
 
 	this.minuteLabel = function(){
-		//Quicker to reuse - turn on 'minute label' display
+		//Quicker to reuse - turn on 'minutes' label display
 		this.displayOn('minutes', 0);
 	}
 
