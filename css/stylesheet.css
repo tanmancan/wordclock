@@ -5,16 +5,22 @@
   font-size: 1rem; }
 
 .debug {
-  color: #fff;
-  float: right; }
+  color: #fff; }
 
 .settings {
   background: #fff;
   width: 20rem;
-  padding: 2rem 1rem; }
+  padding: 2rem 1rem;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none; }
 
 .switch {
-  position: relative; }
+  position: relative;
+  display: inline-block;
+  vertical-align: middle; }
+  .switch + .switchLabel {
+    padding: 1rem; }
   .switch input[type='checkbox'] {
     display: none; }
     .switch input[type='checkbox'] + label {
@@ -27,21 +33,21 @@
       .switch input[type='checkbox'] + label:before {
         content: " ";
         display: block;
+        position: relative;
         width: 2rem;
         height: 2rem;
         background: #222222;
-        position: relative;
         left: 0;
         cursor: pointer; }
       .switch input[type='checkbox'] + label:after {
         content: "off";
         display: block;
+        position: absolute;
         width: 2rem;
         height: 2rem;
         background: transparent;
-        position: absolute;
-        right: .25rem;
-        top: .25rem;
+        right: 0.25rem;
+        top: 0.25rem;
         text-align: center;
         line-height: 2rem; }
     .switch input[type='checkbox']:checked + label:before {
@@ -50,16 +56,17 @@
     .switch input[type='checkbox']:checked + label:after {
       content: "on";
       display: block;
+      position: absolute;
       width: 2rem;
       height: 2rem;
       background: transparent;
-      position: absolute;
-      left: .25rem;
-      top: .25rem;
+      left: 0.25rem;
+      top: 0.25rem;
       text-align: center;
       line-height: 2rem; }
 
 body {
+  font-family: 'Lato', sans-serif;
   font-size: 12pt;
   background: black; }
 
@@ -68,12 +75,14 @@ body {
   height: 475px;
   padding: 2rem;
   position: absolute;
-  top: 0;
   bottom: 0;
   left: 0;
   right: 0;
   margin: auto;
-  background: #222222; }
+  background: #222222;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none; }
   .clockFrame .clockPhrase, .clockFrame .placeHolder {
     display: inline-block;
     font-family: 'Lato', sans-serif;

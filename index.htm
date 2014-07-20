@@ -65,15 +65,21 @@
 <div class="settings">
 	<input type="text" class="staticHour"><input type="text" class="staticMinute">
 	<button id="staticTime">Set a static time</button>
-	<button id="debugOn">Turn On Debug</button>
-	<button id="debugOff">Turn Off Debug</button>
 
 
 	<div class="debugSwitches">
 		<div class="switch">
-			<input type="checkbox" name="debugstate" id="debugstate">
-			<label for="debugstate"></label>
+			<input type="checkbox" name="showtime" id="showtime">
+			<label for="showtime"></label>
 		</div>
+		<span class="switchLabel">Show Current Time</span>
+	</div>
+	<div class="debugSwitches">
+		<div class="switch">
+			<input type="checkbox" name="statictime" id="statictime">
+			<label for="statictime"></label>
+		</div>
+		<span class="switchLabel">Show Static Time</span>
 	</div>
 </div>
 
@@ -82,39 +88,7 @@
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="/js/app.js"></script>
-
-<script>
-	
-	var staticOptions = {
-		staticTime: 'on',
-		staticSetTime: 'Thu, 01 Jan 1970 10:55:00',
-		debug: 'on',
-		refreshRate: 1000
-	},
-	debugOn = {
-		staticTime: 'off',
-		staticSetTime: 'Thu, 01 Jan 1970 10:55:00',
-		debug: 'on',
-		refreshRate: 1000
-	},
-	debugOff = {
-		staticTime: 'off',
-		staticSetTime: 'Thu, 01 Jan 1970 10:55:00',
-		debug: 'off',
-		refreshRate: 1000
-	};
-
-
-	$('#staticTime').on('click', function(){
-		startClock(staticOptions);
-	});
-	$('#debugOn').on('click', function(){
-		startClock(debugOn);
-	});
-	$('#debugOff').on('click', function(){
-		startClock(debugOff);
-	});
-
-</script>
+<script src="/js/settings.js"></script>
+<script>startClock();</script>
 </body>
 </html>

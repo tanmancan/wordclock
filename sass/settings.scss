@@ -4,9 +4,10 @@ $switch-width: 4rem;
 $switch-height: 1.5rem;
 $switch-padding: .25rem;
 
-@mixin switch-label($content, $bg){
+@mixin switch-label($content, $bg, $position){
 	content: $content;
 	display: block;
+	position: $position;
 	width: $switch-width/2;
 	height: $switch-width/2;
 	background: $bg;
@@ -20,21 +21,35 @@ $switch-padding: .25rem;
 }
 .debug{
 	color: #fff;
-	float:right;
 }
 
 .settings{
 	background: #fff;
 	width: 20rem;
 	padding: 2rem 1rem;
+
+	//disables highlight when fast clicking on switches
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
 }
 
+//Switch wrapper
 .switch{
 	position: relative;
+	display: inline-block;
+	vertical-align: middle;
 
+	&+ .switchLabel{
+		padding: 1rem;
+	}
+
+	//Hidden checkbox control
 	input[type='checkbox']{
 		display: none;
-
+		
+		//Off state
+		//Label is holder for the toggle button
 		&+ label{
 		width: $switch-width;
 		display: block;
@@ -43,34 +58,38 @@ $switch-padding: .25rem;
 		background: #aaa;
 		padding: $switch-padding;
 
+			//Toggle button
 			&:before{
-				@include switch-label(' ', #222);
-				position: relative;
+				@include switch-label(' ', #222, relative);
 				left: 0;
 				cursor: pointer;
 			}
+			//Toggle button label(switch on or off state)
 			&:after{
-				@include switch-label('off', transparent);
-				position: absolute;
-				right: .25rem;
-				top: .25rem;
+				@include switch-label('off', transparent, absolute);
+				right: $switch-padding;
+				top: $switch-padding;
 				text-align: center;
 				line-height: 2rem;
 			}
 		}
 		
+		//Checked/on state
 		&:checked{
-			&+ label{
 
+			//Label is holder for the toggle button
+			&+ label{
+				
+				//Toggle button
 				&:before{
 					left: $switch-width/2;
 					content: ' ';
 				}
+				//Toggle button label(switch on or off state)
 				&:after{
-				@include switch-label('on', transparent);
-				position: absolute;
-				left: .25rem;
-				top: .25rem;
+				@include switch-label('on', transparent, absolute);
+				left: $switch-padding;
+				top: $switch-padding;
 				text-align: center;
 				line-height: 2rem;
 				}
