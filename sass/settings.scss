@@ -1,0 +1,81 @@
+
+
+$switch-width: 4rem;
+$switch-height: 1.5rem;
+$switch-padding: .25rem;
+
+@mixin switch-label($content, $bg){
+	content: $content;
+	display: block;
+	width: $switch-width/2;
+	height: $switch-width/2;
+	background: $bg;
+}
+
+.error{
+	font-weight: bold;
+	font-family: sans-serif;
+	color: red;
+	font-size: 1rem;
+}
+.debug{
+	color: #fff;
+	float:right;
+}
+
+.settings{
+	background: #fff;
+	width: 20rem;
+	padding: 2rem 1rem;
+}
+
+.switch{
+	position: relative;
+
+	input[type='checkbox']{
+		display: none;
+
+		&+ label{
+		width: $switch-width;
+		display: block;
+		box-sizing: content-box;
+		position: relative;
+		background: #aaa;
+		padding: $switch-padding;
+
+			&:before{
+				@include switch-label(' ', #222);
+				position: relative;
+				left: 0;
+				cursor: pointer;
+			}
+			&:after{
+				@include switch-label('off', transparent);
+				position: absolute;
+				right: .25rem;
+				top: .25rem;
+				text-align: center;
+				line-height: 2rem;
+			}
+		}
+		
+		&:checked{
+			&+ label{
+
+				&:before{
+					left: $switch-width/2;
+					content: ' ';
+				}
+				&:after{
+				@include switch-label('on', transparent);
+				position: absolute;
+				left: .25rem;
+				top: .25rem;
+				text-align: center;
+				line-height: 2rem;
+				}
+			}
+		}
+	}
+
+}
