@@ -14,6 +14,8 @@
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none; }
+  .settings .debugSwitches {
+    margin: 1rem 0; }
 
 .switch {
   position: relative;

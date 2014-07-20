@@ -2,54 +2,38 @@
 //Setting control script
 var clockSettings = {
 
-	//Preset Settings
-	staticOptions: {
-		staticTime: 'on',
-		staticSetTime: 'Thu, 01 Jan 1970 10:55:00',
-		debug: 'on',
-		refreshRate: 1000
-	},
-	debugOn: {
-		staticTime: 'off',
-		staticSetTime: 'Thu, 01 Jan 1970 10:55:00',
-		debug: 'on',
-		refreshRate: 1000
-	},
-	debugOff: {
-		staticTime: 'off',
-		staticSetTime: 'Thu, 01 Jan 1970 10:55:00',
-		debug: 'off',
-		refreshRate: 1000
+	//Default Settings
+	opts: {
+		staticTime: 'off', // 'on' or 'off' to display a static time
+		staticSetTime: 'Thu, 01 Jan 1970 12:25:00', //Default static time. Custom time format must be valid with Date()
+		debug: 'off', //'on' or 'off' - shows current time or staticTime(if set)
+		refreshRate: 1000 //in milliseconds
 	},
 
 	optShowTime: function(){
-		return $('#showtime').is(':checked');
+		$('#showtime').is(':checked') ? this.opts.debug = 'on' : this.opts.debug = 'off';
+		return this;
 	},
 	optStaticTime: function() {
-		return $('#statictime').is(':checked');
+		$('#statictime').is(':checked') ? this.opts.staticTime = 'on' : this.opts.staticTime = 'off';
+		return this;
 	},
 	initSettings: function(){
 
-		if($('#showtime').is(':checked')) {
-		    //startClock(this.debugOn);
-		    console.log('checked');
-		    return (this.debugOn);
-		}else{
-			//startClock(this.debugOff);
-			console.log('unchecked');
-			return (this.debugOff)
-		}
-		console.log('clicked');
+		this.optShowTime();
+		this.optStaticTime();
+		return this;
+
 	},
 	applySettings: function(){
-		startClock(this.initSettings());
+
+		this.initSettings();
+		startClock(this.opts);
 		return this;
 	}
 }
 
-$('#staticTime').on('click', function(){
-	startClock(staticOptions);
-});
+
 
 $('.switch').on('click', function(){
 
