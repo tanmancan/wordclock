@@ -1,7 +1,7 @@
 
 
-$switch-width: 4rem;
-$switch-height: 1.5rem;
+$switch-width: 3.5rem;
+$switch-height: 1rem;
 $switch-padding: .25rem;
 
 @mixin switch-label($content, $bg, $position){
@@ -10,7 +10,10 @@ $switch-padding: .25rem;
 	position: $position;
 	width: $switch-width/2;
 	height: $switch-width/2;
+	line-height: $switch-width/2;
 	background: $bg;
+	color: #ccc;
+	cursor: pointer;
 }
 
 .error{
@@ -23,10 +26,25 @@ $switch-padding: .25rem;
 	whitespace:no-wrap;
 }
 
+
+
 .settings{
-	background: #fff;
 	width: 20rem;
-	padding: 2rem 1rem;
+	padding: 0;
+
+	background: #222;
+	border: 1px solid #444;
+	color: #aaa;
+
+	position: absolute;
+	top:1rem;
+	right:-22rem;
+
+	transition: right .3s ease;
+
+	&:hover{
+		right: 1rem;
+	}
 
 	//disables highlight when fast clicking on switches
 	-moz-user-select: none;
@@ -34,9 +52,42 @@ $switch-padding: .25rem;
 	-ms-user-select: none;
 
 	.settingOptions {
-		margin: 1rem 0;
+		border: 1px solid #444;
+		border-width: 1px 0 0;
+		padding: .5rem;
+		background: linear-gradient(#252525 0%, #141414 50%, #252525 100%);
+		text-align: left;
+		&:last-child{
+			//border-bottom-width:1px;
+		}
 	}
 }
+.settingToggle{
+	width:6rem;
+	padding:.5rem;
+	line-height:1;
+	text-align:center;
+	cursor:pointer;
+	background: #222;
+	border: 1px solid #444;
+	color: #aaa;
+	position: absolute;
+	top:1rem;
+	right:1rem;
+	&:hover + .settings{
+		right: 1rem;
+	}
+}
+//Swtich Label
+.switchLabel{
+		padding: 1rem;
+		font-weight: 700;
+		font-size: 0.9rem;
+		text-rendering: optimizeLegibility;
+		display: inline-block;
+		box-sizing: border-box;
+		width: 14rem;
+	}
 
 //Switch wrapper
 .switch{
@@ -44,9 +95,6 @@ $switch-padding: .25rem;
 	display: inline-block;
 	vertical-align: middle;
 
-	&+ .switchLabel{
-		padding: 1rem;
-	}
 
 	//Hidden checkbox control
 	input[type='checkbox']{
@@ -59,14 +107,17 @@ $switch-padding: .25rem;
 		display: block;
 		box-sizing: content-box;
 		position: relative;
-		background: #aaa;
+		background: #eee;
 		padding: $switch-padding;
+		transition: background .2s ease;
+		border-radius: $switch-width/2;
 
 			//Toggle button
 			&:before{
-				@include switch-label(' ', #222, relative);
+				@include switch-label(' ', #ccc, relative);
 				left: 0;
-				cursor: pointer;
+				transition: left .2s ease;
+				border-radius: 50%;
 			}
 			//Toggle button label(switch on or off state)
 			&:after{
@@ -74,7 +125,6 @@ $switch-padding: .25rem;
 				right: $switch-padding;
 				top: $switch-padding;
 				text-align: center;
-				line-height: 2rem;
 			}
 		}
 		
@@ -83,19 +133,22 @@ $switch-padding: .25rem;
 
 			//Label is holder for the toggle button
 			&+ label{
+
+				background: #58C01D;
 				
 				//Toggle button
 				&:before{
 					left: $switch-width/2;
 					content: ' ';
+					background: #fff;
 				}
 				//Toggle button label(switch on or off state)
 				&:after{
-				@include switch-label('on', transparent, absolute);
-				left: $switch-padding;
-				top: $switch-padding;
-				text-align: center;
-				line-height: 2rem;
+					@include switch-label('on', transparent, absolute);
+					left: $switch-padding;
+					top: $switch-padding;
+					text-align: center;
+					color: #fff;
 				}
 			}
 		}

@@ -8,69 +8,119 @@
   whitespace: no-wrap; }
 
 .settings {
-  background: #fff;
   width: 20rem;
-  padding: 2rem 1rem;
+  padding: 0;
+  background: #222;
+  border: 1px solid #444;
+  color: #aaa;
+  position: absolute;
+  top: 1rem;
+  right: -22rem;
+  transition: right .3s ease;
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none; }
+  .settings:hover {
+    right: 1rem; }
   .settings .settingOptions {
-    margin: 1rem 0; }
+    border: 1px solid #444;
+    border-width: 1px 0 0;
+    padding: .5rem;
+    background: linear-gradient(#252525 0%, #141414 50%, #252525 100%);
+    text-align: left; }
+
+.settingToggle {
+  width: 6rem;
+  padding: .5rem;
+  line-height: 1;
+  text-align: center;
+  cursor: pointer;
+  background: #222;
+  border: 1px solid #444;
+  color: #aaa;
+  position: absolute;
+  top: 1rem;
+  right: 1rem; }
+  .settingToggle:hover + .settings {
+    right: 1rem; }
+
+.switchLabel {
+  padding: 1rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-rendering: optimizeLegibility;
+  display: inline-block;
+  box-sizing: border-box;
+  width: 14rem; }
 
 .switch {
   position: relative;
   display: inline-block;
   vertical-align: middle; }
-  .switch + .switchLabel {
-    padding: 1rem; }
   .switch input[type='checkbox'] {
     display: none; }
     .switch input[type='checkbox'] + label {
-      width: 4rem;
+      width: 3.5rem;
       display: block;
       box-sizing: content-box;
       position: relative;
-      background: #aaa;
-      padding: 0.25rem; }
+      background: #eee;
+      padding: 0.25rem;
+      transition: background .2s ease;
+      border-radius: 1.75rem; }
       .switch input[type='checkbox'] + label:before {
         content: " ";
         display: block;
         position: relative;
-        width: 2rem;
-        height: 2rem;
-        background: #222222;
+        width: 1.75rem;
+        height: 1.75rem;
+        line-height: 1.75rem;
+        background: #cccccc;
+        color: #ccc;
+        cursor: pointer;
         left: 0;
-        cursor: pointer; }
+        transition: left .2s ease;
+        border-radius: 50%; }
       .switch input[type='checkbox'] + label:after {
         content: "off";
         display: block;
         position: absolute;
-        width: 2rem;
-        height: 2rem;
+        width: 1.75rem;
+        height: 1.75rem;
+        line-height: 1.75rem;
         background: transparent;
+        color: #ccc;
+        cursor: pointer;
         right: 0.25rem;
         top: 0.25rem;
+        text-align: center; }
+    .switch input[type='checkbox']:checked + label {
+      background: #58C01D; }
+      .switch input[type='checkbox']:checked + label:before {
+        left: 1.75rem;
+        content: ' ';
+        background: #fff; }
+      .switch input[type='checkbox']:checked + label:after {
+        content: "on";
+        display: block;
+        position: absolute;
+        width: 1.75rem;
+        height: 1.75rem;
+        line-height: 1.75rem;
+        background: transparent;
+        color: #ccc;
+        cursor: pointer;
+        left: 0.25rem;
+        top: 0.25rem;
         text-align: center;
-        line-height: 2rem; }
-    .switch input[type='checkbox']:checked + label:before {
-      left: 2rem;
-      content: ' '; }
-    .switch input[type='checkbox']:checked + label:after {
-      content: "on";
-      display: block;
-      position: absolute;
-      width: 2rem;
-      height: 2rem;
-      background: transparent;
-      left: 0.25rem;
-      top: 0.25rem;
-      text-align: center;
-      line-height: 2rem; }
+        color: #fff; }
 
 body {
   font-family: 'Lato', sans-serif;
   font-size: 12pt;
-  background: black; }
+  background: black;
+  width: 100%;
+  overflow: hidden; }
 
 .clockFrame {
   width: 835px;
