@@ -48,6 +48,7 @@ body{
 	.clockPhrase{
 		display: inline-block;
 		@include display-text;
+		transition: color .1s ease, text-shadow .1s ease;
 
 		&.active{
 			color: #fff;

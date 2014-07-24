@@ -36,7 +36,7 @@ $switch-padding: .25rem;
 	border: 1px solid #444;
 	color: #aaa;
 
-	position: absolute;
+	position: fixed;
 	top:1rem;
 	right:-22rem;
 
@@ -61,6 +61,7 @@ $switch-padding: .25rem;
 			//border-bottom-width:1px;
 		}
 	}
+
 }
 .settingToggle{
 	width:6rem;
@@ -78,8 +79,8 @@ $switch-padding: .25rem;
 		right: 1rem;
 	}
 }
-//Swtich Label
-.switchLabel{
+//side Label
+.sideLabel{
 		padding: 1rem;
 		font-weight: 700;
 		font-size: 0.9rem;
@@ -88,6 +89,7 @@ $switch-padding: .25rem;
 		box-sizing: border-box;
 		width: 14rem;
 	}
+
 
 //Switch wrapper
 .switch{
@@ -155,4 +157,18 @@ $switch-padding: .25rem;
 		}
 	}
 
+}
+
+//Static time manual adjustments
+.staticInput{
+	display: none;
+	input{
+		width: $switch-width;
+		height: $switch-height;
+		display: inline-block;
+		background: #444;
+		border: 1px solid #555;
+		color: #ccc;
+		padding: .25rem;
+	}
 }
