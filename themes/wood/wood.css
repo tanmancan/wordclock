@@ -1,10 +1,10 @@
 .clockFrame {
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.86) 0%, rgba(15, 15, 15, 0.83) 100%), url("images/frame.png") repeat;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.86) 0%, rgba(15, 15, 15, 0.83) 100%), url("images/face.png") repeat;
   box-shadow: inset 0.25rem 0.35rem 0 #414141; }
   .clockFrame:before {
     content: ' ';
     display: block;
-    background: url("images/face.png") repeat;
+    background: url("images/frame.png") repeat;
     width: 100%;
     height: 100%;
     position: absolute;
