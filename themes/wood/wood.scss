@@ -3,8 +3,10 @@ $frame-img: 'images/frame.png';
 $face-img: 'images/face.png';
 
 .clockFrame{
-	background: linear-gradient(135deg, rgba(0, 0, 0, 0.86) 0%, rgba(15, 15, 15, 0.83) 100%), 
-				url($face-img) repeat;
+	background: linear-gradient(135deg, 
+								rgba(0, 0, 0, 0.86) 0%, 
+								rgba(15, 15, 15, 0.83) 100%), 
+								url($face-img) repeat;
 	box-shadow: inset .25rem .35rem 0 rgb(65, 65, 65);
 
 	&:before{
