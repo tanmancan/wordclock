@@ -47,7 +47,7 @@ var wordClock = new function(){
 		        break;
 		    default:
 		        this.error('Invalid dispTime option. Must be "on" or "off"');
-		};
+		}
 		//staticTime + staticSetTime validation
 		switch(settings.staticTime){
 		    case 'on':
@@ -68,7 +68,7 @@ var wordClock = new function(){
 
 	this.initClock = function(options){
 
-		//Set up settings and options
+		//Set up settings and custom options
 		this.settings = this.setOptions(options);
 		that = this;
 
@@ -96,9 +96,10 @@ var wordClock = new function(){
 		$('.clockPhrase.active:not([data-time-permanent])').removeClass('active');
 
 		//Begin calculating time and turn on corresponding displays
-		this.minuteLogic();
+		this.minuteCircuit();
+		this.hourCircuit();
 		
-		//dispTime settings
+		//Show realtime clock
 		if(this.settings.dispTime == 'on')this.dispTime();
 
 		return this;
@@ -163,15 +164,13 @@ var wordClock = new function(){
 	}
 
 
-	this.hourLogic = function(showMinute){
+	this.hourCircuit = function(){
 
-		//Get verb value & add to hours display if verb is 'to'
-		//i.e. 5 minutes TO 10 when it is 9 o'clock
-		var hourOffset = this.verbLogic();
-		//console.log(this.getHours() + hourOffset);
+		//Decide whether to show 'to' or 'past' and retrieve offset value for hours
+		var hourOffset = this.timeOffset(),
+			hourNow = this.getHours();
 
-		//Adjust offset for 12 hour rollover
-		var hourNow = this.getHours();
+		//Adjust hours when displaying 'to' or 'past'
 		if(hourNow + hourOffset > 12){
 			hourNow = 1;
 		}else{
@@ -181,74 +180,77 @@ var wordClock = new function(){
 		//Set hour display
 		this.displayOn('hours', hourNow);
 
-		//showMinute determins if 0'clock display is active
-		showMinute == false ? this.displayOff('hours', 0) : this.displayOn('hours', 0);
+		//Set whether to show the "o'clock" display
+		if(this.getMinutes() % 5 == 0 && this.getMinutes() != 0){
+			this.displayOff('hours', 0);
+		}else{
+			this.displayOn('hours', 0);
+		}
 		
 		return this;
 	}
 
-	this.minuteLogic = function(){
-
-		//Set whether to show o'clock display
-		this.getMinutes() % 5 == 0 && this.getMinutes() != 0 ? this.hourLogic(false) : this.hourLogic(true);
+	this.minuteCircuit = function(){
 
 		var minRemaining = 60 - this.getMinutes();
 
-		//if if if
+		switch (minRemaining){
+			//'five' minutes display
+			case 5: 
+			case 55:
+				this.displayOn('minutes', 5);
+				this.displayOn('minutes', 0);
+				break;
+			//10
+			case 10:
+			case 50:
+				this.displayOn('minutes', 10);
+				this.displayOn('minutes', 0);
+				break;
+			//15
+			case 15:
+			case 45:
+				this.displayOn('minutes', 15);
+				break;
+			//20
+			case 20:
+			case 40:
+				this.displayOn('minutes', 20);
+				this.displayOn('minutes', 0);
+				break;
+			//25 - 'twenty' + 'five'
+			case 25:
+			case 35:
+				this.displayOn('minutes', 20);
+				this.displayOn('minutes', 5);
+				this.displayOn('minutes', 0);
+				break;
+			//30 - 'half'
+			case 30:
+				this.displayOn('minutes', 30);
+				break;
+			default:
+				null;
 
-		//'five' minutes display
-		if(minRemaining == 5 || minRemaining == 55){
-			this.displayOn('minutes', 5);
-			this.minuteLabel();
-
-		//10
-		}else if(minRemaining == 10 || minRemaining == 50){
-			this.displayOn('minutes', 10);
-			this.minuteLabel();
-
-		//15
-		}else if(minRemaining == 15 || minRemaining == 45){
-			this.displayOn('minutes', 15);
-
-		//20
-		}else if(minRemaining == 20 || minRemaining == 40){
-			this.displayOn('minutes', 20);
-			this.minuteLabel();
-
-		//25 - 'twenty' + 'five'
-		}else if(minRemaining == 25 || minRemaining == 35){
-			this.displayOn('minutes', 20);
-			this.displayOn('minutes', 5);
-			this.minuteLabel();
-
-		//30 - 'half'
-		}else if(minRemaining == 30){
-			this.displayOn('minutes', 30);
 		}
 
 		return this;
 	}
 
 
-	this.minuteLabel = function(){
-		//Quicker to reuse - turn on 'minutes' label display
-		this.displayOn('minutes', 0);
-	}
+	this.timeOffset = function(){
 
-
-	this.verbLogic = function(){
-
-		//Determine wheter to use 'past' or 'to' indicator
+		//Determine whether to use 'past' or 'to' indicator
 		if(this.getMinutes() % 5 == 0 && this.getMinutes() <= 30 && this.getMinutes() != 0){
 			//activate 'past' display
-			this.displayOn('verb', 1);
+			this.displayOn('offset', 1);
 			//No need to offset hour display
 			return 0;
 		}else if(this.getMinutes() % 5 == 0 && this.getMinutes() > 30){
 			//activate 'to' display
-			this.displayOn('verb', 0);
+			this.displayOn('offset', 0);
 			//Return hour offset #
-			//Add to hours display since verb is 'to'
+			//Add to hours display since offset is 'to'
 			//i.e. 5 minutes TO 10 when it is 9 o'clock
 			return 1;
 		}else{
