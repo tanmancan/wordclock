@@ -5,7 +5,7 @@
 	<title>Wordclock</title>
 	<link href='http://fonts.googleapis.com/css?family=Lato:400,700,900,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="/css/stylesheet.css">
-	<link rel="stylesheet" href="/themes/wood/wood.css">
+	<link rel="stylesheet" id="themeStyle" href="/themes/glass/glass.css">
 </head>
 <body>
 
@@ -76,6 +76,13 @@
 
 <div class="settingToggle">Settings</div>
 <div class="settings">
+	<div class="settingOptions">
+		<span class="sideLabel">Select Theme</span>
+		<select name="theme" id="theme">
+			<option value="glass">Glass</option>
+			<option value="wood">Wood</option>
+		</select>
+	</div>
 	<div class="settingOptions">
 		<span class="sideLabel">Show Minute and Seconds</span>
 		<div class="switch">

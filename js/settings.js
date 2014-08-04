@@ -4,6 +4,7 @@ var clockSettings = {
 
 	//Default Settings
 	opts: {
+		theme: 'glass',
 		staticTime: 'off', // 'on' or 'off' to display a static time
 		staticSetTime: 'Thu, 01 Jan 1970 12:25:00', //Default static time. Custom time format must be valid with Date()
 		dispTime: 'off', //'on' or 'off' - shows current time or staticTime(if set)
@@ -19,6 +20,9 @@ var clockSettings = {
 		
 
 		//Custom options per settings
+
+		//Theme
+		this.opts.theme = $('#theme').val();
 
 		//Static time manual adjustment
 		//Update static value or hide the manual adjustment inputs
@@ -55,12 +59,12 @@ var clockSettings = {
 
 
 $('.switch').on('click', function(){
-	console.log($('input.staticHours').val());
-	console.log($('input.staticMinutes').val());
+	//console.log($('input.staticHours').val());
+	//console.log($('input.staticMinutes').val());
 	clockSettings.applySettings();
 });
 
-$('.staticInput input').on('change', function(){
-	console.log('val changed');
+$('.staticInput input, #theme').on('change', function(){
+	//console.log('val changed');
 	clockSettings.applySettings();	
 });

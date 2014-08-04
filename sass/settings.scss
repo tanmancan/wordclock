@@ -40,6 +40,8 @@ $switch-padding: .25rem;
 	top:1rem;
 	right:-22rem;
 
+	z-index: 4;
+
 	transition: right .3s ease;
 
 	&:hover{
@@ -60,6 +62,9 @@ $switch-padding: .25rem;
 		&:last-child{
 			//border-bottom-width:1px;
 		}
+
+		
+
 	}
 
 }
@@ -171,4 +176,13 @@ $switch-padding: .25rem;
 		color: #ccc;
 		padding: .25rem;
 	}
+}
+
+select#theme{
+	width: $switch-width+1rem;
+	display: inline-block;
+	background: #444;
+	border: 1px solid #555;
+	color: #ccc;
+	padding: .25rem;
 }

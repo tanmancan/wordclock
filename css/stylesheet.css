@@ -16,6 +16,7 @@
   position: fixed;
   top: 1rem;
   right: -22rem;
+  z-index: 4;
   transition: right .3s ease;
   -moz-user-select: none;
   -webkit-user-select: none;
@@ -125,6 +126,14 @@
     border: 1px solid #555;
     color: #ccc;
     padding: .25rem; }
+
+select#theme {
+  width: 4.5rem;
+  display: inline-block;
+  background: #444;
+  border: 1px solid #555;
+  color: #ccc;
+  padding: .25rem; }
 
 body {
   font-family: 'Lato', sans-serif;

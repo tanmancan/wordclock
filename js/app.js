@@ -24,6 +24,7 @@
 var wordClock = new function(){
 
 	this.defaults = {
+		theme: 'glass',
 		staticTime: 'off', // 'on' or 'off' to display a static time
 		staticSetTime: 'Thu, 01 Jan 1970 12:25:00', //Default static time. Custom time format must be valid with Date()
 		dispTime: 'off', //'on' or 'off' - shows current time or staticTime(if set)
@@ -84,6 +85,8 @@ var wordClock = new function(){
 			}
 		});
 
+		this.setTheme();
+
 		//Start display update cycle
 		refreshId = setInterval(function(){that.refreshClock()}, this.settings.refreshRate );
 
@@ -103,6 +106,11 @@ var wordClock = new function(){
 		if(this.settings.dispTime == 'on')this.dispTime();
 
 		return this;
+	}
+
+	this.setTheme = function(){
+		var thm = this.settings.theme
+		$('#themeStyle').attr('href', '/themes/'+thm+'/'+thm+'.css')
 	}
 
 	this.dispTime = function(){
