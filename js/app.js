@@ -79,9 +79,9 @@ var wordClock = new function(){
 			//console.log(thisDisp);
 			//console.log(thisDisp.data('time-permanent'));
 			if (thisDisp.data('time-permanent') == 1) {
-				thisDisp.addClass('active');
+				thisDisp.addClass('active').data('display', 1);
 			}else{
-				thisDisp.removeClass('active');
+				thisDisp.removeClass('active').data('display', 0);
 			}
 		});
 
@@ -95,8 +95,12 @@ var wordClock = new function(){
 
 	this.refreshClock = function(){
 
-		//reset display on each cycle
-		$('.clockPhrase.active:not([data-time-permanent])').removeClass('active');
+		//Turn of only the displays that are not current or permanent
+		$('.clockPhrase').each(function(index, element){
+			if($(element).data('display') != 1){
+				$(element).removeClass('active');
+			}
+		});
 
 		//Begin calculating time and turn on corresponding displays
 		this.minuteCircuit();
@@ -161,7 +165,7 @@ var wordClock = new function(){
 
 	this.displayOn = function(type, value){
 		//Turn on display item based on data attribute and value
-		$('[data-time-'+type+'="'+value+'"]').addClass('active');
+		$('[data-time-'+type+'="'+value+'"]').addClass('active').data('display', 1);
 		return this;
 	}
 

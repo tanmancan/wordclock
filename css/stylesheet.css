@@ -75,7 +75,6 @@
         position: relative;
         width: 1.75rem;
         height: 1.75rem;
-        line-height: 1.75rem;
         background: #cccccc;
         color: #ccc;
         cursor: pointer;
@@ -88,13 +87,15 @@
         position: absolute;
         width: 1.75rem;
         height: 1.75rem;
-        line-height: 1.75rem;
         background: transparent;
         color: #ccc;
         cursor: pointer;
         right: 0.25rem;
-        top: 0.25rem;
-        text-align: center; }
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        text-align: center;
+        height: 1.5rem; }
     .switch input[type='checkbox']:checked + label {
       background: #58C01D; }
       .switch input[type='checkbox']:checked + label:before {
@@ -107,14 +108,17 @@
         position: absolute;
         width: 1.75rem;
         height: 1.75rem;
-        line-height: 1.75rem;
         background: transparent;
         color: #ccc;
         cursor: pointer;
         left: 0.25rem;
-        top: 0.25rem;
+        right: inherit;
+        top: 0;
+        bottom: 0;
+        margin: auto;
         text-align: center;
-        color: #fff; }
+        color: #fff;
+        height: 1.5rem; }
 
 .staticInput {
   display: none; }
@@ -164,7 +168,7 @@ body {
     text-transform: uppercase;
     text-rendering: optimizeLegibility;
     color: #111111;
-    transition: color .1s ease, text-shadow .1s ease; }
+    transition: color .3s ease, text-shadow .3s ease; }
     .clockFrame .clockPhrase.active, .clockFrame .active.placeHolder {
       color: #fff;
       text-shadow: 0px 0px 15px #fff; }
@@ -176,29 +180,25 @@ body {
     color: #fff;
     text-shadow: 0px 0px 15px #fff; }
 
-  10% {
-    color: #ccc;
-    text-shadow: 0px 0px 13px #ccc; }
-
-  23% {
-    color: #fff;
-    text-shadow: 0px 0px 14px #fff; }
-
-  30% {
-    color: #ccc;
-    text-shadow: 0px 0px 15px #ccc; }
-
-  65% {
+  6% {
     color: #fff;
     text-shadow: 0px 0px 15px #fff; }
 
-  69% {
-    color: #fff;
-    text-shadow: 0px 0px 17px #fff; }
+  7% {
+    color: transparent;
+    text-shadow: none; }
 
-  74% {
-    color: #ccc;
-    text-shadow: 0px 0px 14px #ccc; }
+  8% {
+    color: #fff;
+    text-shadow: 0px 0px 15px #fff; }
+
+  9% {
+    color: transparent;
+    text-shadow: none; }
+
+  10% {
+    color: #fff;
+    text-shadow: 0px 0px 15px #fff; }
 
   100% {
     color: #fff;

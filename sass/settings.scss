@@ -8,9 +8,8 @@ $switch-padding: .25rem;
 	content: $content;
 	display: block;
 	position: $position;
-	width: $switch-width/2;
-	height: $switch-width/2;
-	line-height: $switch-width/2;
+	width: ($switch-width/2);
+	height: ($switch-width/2);
 	background: $bg;
 	color: #ccc;
 	cursor: pointer;
@@ -130,8 +129,11 @@ $switch-padding: .25rem;
 			&:after{
 				@include switch-label('off', transparent, absolute);
 				right: $switch-padding;
-				top: $switch-padding;
+				top: 0;
+				bottom: 0;
+				margin: auto;
 				text-align: center;
+				height: ($switch-width/2) - $switch-padding;
 			}
 		}
 		
@@ -154,9 +156,13 @@ $switch-padding: .25rem;
 				&:after{
 					@include switch-label('on', transparent, absolute);
 					left: $switch-padding;
-					top: $switch-padding;
+					right: inherit;
+					top: 0;
+					bottom: 0;
+					margin: auto;
 					text-align: center;
 					color: #fff;
+					height: ($switch-width/2) - $switch-padding;
 				}
 			}
 		}
