@@ -146,6 +146,24 @@ body {
   width: 100%;
   overflow: hidden; }
 
+.cred {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  width: 100%;
+  color: #777; }
+  .cred a:link,
+  .cred a:visited,
+  .cred a:hover,
+  .cred a:active,
+  .cred a:focus {
+    color: #777; }
+  .cred a:hover,
+  .cred a:active,
+  .cred a:focus {
+    text-decoration: none; }
+
 .clockFrame {
   width: 835px;
   height: 475px;

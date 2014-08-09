@@ -1,6 +1,7 @@
 // The MIT License (MIT)
 
 // Copyright (c) 2014 Tanveer Karim
+// tkarimdesign.com
 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -64,6 +65,7 @@ var wordClock = new function(){
 		}
 		if(typeof settings.refreshRate != 'number')this.error('refreshRate must be a number(in milliseconds)');
 
+		
 		return settings;
 	}
 
@@ -81,11 +83,12 @@ var wordClock = new function(){
 			if (thisDisp.data('time-permanent') == 1) {
 				thisDisp.addClass('active').data('display', 1);
 			}else{
-				thisDisp.removeClass('active').data('display', 0);
+				thisDisp.removeClass('active');
 			}
 		});
 
-		this.setTheme();
+		//Apply theme 
+		if($('#theme').val() != $('#themeStyle').attr('data-theme'))this.setTheme();
 
 		//Start display update cycle
 		refreshId = setInterval(function(){that.refreshClock()}, this.settings.refreshRate );
@@ -114,7 +117,7 @@ var wordClock = new function(){
 
 	this.setTheme = function(){
 		var thm = this.settings.theme
-		$('#themeStyle').attr('href', '/themes/'+thm+'/'+thm+'.css')
+		$('#themeStyle').attr('href', '/themes/'+thm+'/'+thm+'.css').attr('data-theme', thm);
 	}
 
 	this.dispTime = function(){

@@ -25,6 +25,27 @@ body{
 	overflow:hidden;
 }
 
+.cred{
+	display: block;
+	position: absolute;
+	bottom: 0;
+	text-align: center;
+	width: 100%;
+	color: #777;
+	a:link,
+	a:visited,
+	a:hover,
+	a:active,
+	a:focus{
+		color: #777;
+
+	}
+	a:hover,
+	a:active,
+	a:focus{
+		text-decoration: none;
+	}
+}
 
 .clockFrame{
 	width: 835px;
