@@ -75,17 +75,6 @@ var wordClock = new function(){
 		this.settings = this.setOptions(options);
 		that = this;
 
-		//Turn on/turn off the display that do not refresh with time change
-		$('.clockPhrase').each(function(index, element){
-			var thisDisp = $(element);
-			//console.log(thisDisp);
-			//console.log(thisDisp.data('time-permanent'));
-			if (thisDisp.data('time-permanent') == 1) {
-				thisDisp.addClass('active').data('display', 1);
-			}else{
-				thisDisp.removeClass('active');
-			}
-		});
 
 		//Apply theme 
 		if($('#theme').val() != $('#themeStyle').attr('data-theme'))this.setTheme();
@@ -98,10 +87,14 @@ var wordClock = new function(){
 
 	this.refreshClock = function(){
 
-		//Turn of only the displays that are not current or permanent
+		//Turn on/turn off the display that do not refresh with time change
 		$('.clockPhrase').each(function(index, element){
-			if($(element).data('display') != 1){
-				$(element).removeClass('active');
+			var thisDisp = $(element);
+			if (thisDisp.data('time-permanent') == 1) {
+				thisDisp.addClass('active');
+			}else{
+				//Reset display
+				thisDisp.removeClass('active');
 			}
 		});
 
@@ -168,7 +161,7 @@ var wordClock = new function(){
 
 	this.displayOn = function(type, value){
 		//Turn on display item based on data attribute and value
-		$('[data-time-'+type+'="'+value+'"]').addClass('active').data('display', 1);
+		$('[data-time-'+type+'="'+value+'"]').addClass('active');
 		return this;
 	}
 

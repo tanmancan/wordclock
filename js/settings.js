@@ -38,14 +38,13 @@ var clockSettings = {
 	initSettings: function(){
 
 		//All settings
+		
 		$('#showtime').is(':checked') ? this.opts.dispTime = 'on' : this.opts.dispTime = 'off';
 		$('#statictime').is(':checked') ? this.opts.staticTime = 'on' : this.opts.staticTime = 'off';
+		this.opts.theme = $('#theme').val();
 		
 
 		//Custom options per settings
-
-		//Theme
-		this.opts.theme = $('#theme').val();
 
 		//Static time manual adjustment
 		//Update static value or hide the manual adjustment inputs
