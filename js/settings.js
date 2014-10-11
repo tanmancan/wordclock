@@ -58,7 +58,7 @@ var clockSettings = {
 	staticTimeManual: function(){
 
 		$('.staticInput').show();
-		var hr = hr = $('input.staticHours').val(),
+		var hr  = $('input.staticHours').val(),
 			min = $('input.staticMinutes').val();
 
 		//Workaround for buggy default val retrieval when using input[number]
