@@ -2,12 +2,18 @@
 $frame-img: 'images/frame.png';
 $face-img: 'images/face.png';
 
+html,
+body{
+	height: 100%;
+}
+
+body{
+	background: radial-gradient( #fff 0%, rgb(237, 240, 243) 100%);
+}
+
 .clockFrame{
-	background: linear-gradient(135deg, 
-								rgba(0, 0, 0, 0.86) 0%, 
-								rgba(15, 15, 15, 0.83) 100%), 
-								url($face-img) repeat;
-	box-shadow: inset .25rem .35rem 0 rgb(65, 65, 65);
+	background: url($face-img) repeat;
+	box-shadow: inset .25rem .35rem 0 #251803;
 
 	&:before{
 		content: ' ';
@@ -22,10 +28,14 @@ $face-img: 'images/face.png';
 		margin: 0;
 		padding: 2rem;
 		border-radius: 2rem;
-		box-shadow: .25rem .45rem #181818;
+		box-shadow: .25rem .45rem #C3A45D;
 	}
 }
 
 span.clockPhrase:not(.active){
-	text-shadow: 1px 1px #222;
+	text-shadow: -2px -2px #271607;
+}
+
+.clockFrame .clockPhrase, .clockFrame .placeHolder{
+	color: rgba(100, 92, 74, 0.26);
 }
