@@ -1,4 +1,5 @@
 # Wordclock
+![alt tag](https://raw.githubusercontent.com/tanmancan/wordclock/master/splash.jpg)
 You can view a demo for the wordclock here: [http://wordclock.tkarimdesign.com/](http://wordclock.tkarimdesign.com/)
 
 **Hover over the settings button on the top right of the screen to view controls for the clock.**
